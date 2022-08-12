@@ -25,17 +25,26 @@ struct InstancingVSOutput
 InstancingVSOutput InstancingVS(in InstancingVSInput input, float4 instanceTransform : POSITION1, float3 rotation: POSITION2)
 {
 	InstancingVSOutput output = (InstancingVSOutput)0;
+	//Rotation matrix around y axis
 	matrix  r = matrix(
 		float4(cos(rotation.y)	, 0		,sin(rotation.y), 0),
 		float4(0				, 1		,0				, 0),
 		float4(-sin(rotation.y)	, 0		,cos(rotation.y), 0),
 		float4(0				, 0		,0				, 1));
+	
+	//create rotation
 	float4 pos = mul(input.Position, r) ;
+
+	//calculate offset for wind effect
 	float decal = sin(((instanceTransform.x+ instanceTransform.y)*5+time)*0.002) ;
+
+	//Place to the instance position
 	pos = pos+ instanceTransform;
+
+	//add "wind" to the blade based on the y position to make the higher part of the blade to move more
 	pos.x =pos.x + decal * input.Position.y;
 
-
+	//Set to projection of the camra
 	pos = mul(pos, WorldViewProjection);
 
 	output.Position = pos;

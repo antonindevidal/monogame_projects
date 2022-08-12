@@ -14,7 +14,6 @@ namespace _3dtest
 
 
 
-        Model model;
         BasicMap map;
         BasicCamera camera;
 
@@ -45,7 +44,6 @@ namespace _3dtest
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            model = Content.Load<Model>("MonoCube/MonoCube");
             font = Content.Load<SpriteFont>("font/roboto");
             map.LoadContent(Content);
         }
@@ -63,22 +61,6 @@ namespace _3dtest
 
             GraphicsDevice.Clear(Color.Black);
             map.Draw(gameTime,GraphicsDevice, camera.projectionMatrix, camera.viewMatrix, camera.worldMatrix);
-
-            //foreach (ModelMesh mesh in  model.Meshes)
-            //{
-            //    foreach(BasicEffect effect in mesh.Effects)
-            //    {
-            //        effect.View = viewMatrix;
-            //        effect.World = worldMatrix;
-            //        effect.Projection = projectionMatrix;
-            //    }
-            //    mesh.Draw();
-            //}
-/*
-            _spriteBatch.Begin();
-            _spriteBatch.DrawString(font, "" + MathF.Sin((int)((int)gameTime.TotalGameTime.TotalMilliseconds * 0.002)), new Vector2(0, 0), Color.Black);
-            _spriteBatch.End();*/
-
 
 
             base.Draw(gameTime);
