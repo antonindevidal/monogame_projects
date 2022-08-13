@@ -52,7 +52,9 @@ namespace _3dtest.Map
         /// </summary>
         private VertexDeclaration instanceVertexDeclaration;
 
-        public void Initialize(GraphicsDevice graphicsDevice,int mapSize, int squareSize, float[,] noise)
+
+
+        public void Initialize(GraphicsDevice graphicsDevice, int mapSize, int squareSize, float[,] noise)
         {
             InitializeInstanceVertexBuffer();
 
@@ -120,11 +122,11 @@ namespace _3dtest.Map
 
 
 
-        public void Draw(GameTime gameTime, GraphicsDevice graphicsDevice,Matrix view,Matrix projection)
+        public void Draw(GameTime gameTime, GraphicsDevice graphicsDevice,Matrix worldViewProjection)
         {
             // Set the effect technique and parameters
             effect.CurrentTechnique = effect.Techniques["Instancing"];
-            effect.Parameters["WorldViewProjection"].SetValue(view * projection);
+            effect.Parameters["WorldViewProjection"].SetValue(worldViewProjection);
             effect.Parameters["time"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
 
             graphicsDevice.Indices = grassElement.indexBuffer;

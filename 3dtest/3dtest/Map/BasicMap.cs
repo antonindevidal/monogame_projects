@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace _3dtest.Map
 {
-    class BasicMap
+    class BasicMap 
     {
 
         BasicEffect basicEffect;
@@ -27,6 +27,7 @@ namespace _3dtest.Map
 
         GrassElement grassElement;
         Cube cube;
+
 
 
         public void Initialize(GraphicsDevice graphicsDevice)
@@ -54,7 +55,7 @@ namespace _3dtest.Map
             {
                 for (int j = 0; j < MAPSIZE; j++)
                 {
-                    triangleVertices[i + MAPSIZE * j] = new VertexPositionColor(new Vector3(i * TRIANGLESIZE -MAPSIZE*TRIANGLESIZE/2, noise[i* TRIANGLESIZE,j*TRIANGLESIZE],j*TRIANGLESIZE - MAPSIZE * TRIANGLESIZE / 2),new Color(0,26,4));
+                    triangleVertices[i + MAPSIZE * j] = new VertexPositionColor(new Vector3(i * TRIANGLESIZE -MAPSIZE*TRIANGLESIZE/2, noise[i* TRIANGLESIZE,j*TRIANGLESIZE],j*TRIANGLESIZE - MAPSIZE * TRIANGLESIZE / 2),new Color(123,204,70));
                 }
             }
 
@@ -98,21 +99,19 @@ namespace _3dtest.Map
         {
             basicPositionEffect = content.Load<Effect>("effects/position");
             grassManager.LoadContent(content);
-
             basicPositionEffect.Parameters["pos"].SetValue(new Vector3(0,noise[(MAPSIZE * TRIANGLESIZE) / 2, (MAPSIZE * TRIANGLESIZE) / 2] -1,0));
         }
 
 
-        public void Draw(GameTime gameTime,GraphicsDevice graphicsDevice,Matrix projectionMatrix, Matrix viewMatrix, Matrix worldMatrix)
+        public void Draw(GameTime gameTime,GraphicsDevice graphicsDevice,Matrix projectionMatrix, Matrix viewMatrix, Matrix worldMatrix,SpriteBatch spriteBatch)
         {
-            basicPositionEffect.Parameters["WorldViewProjection"].SetValue(viewMatrix * projectionMatrix);
-
+            Matrix worldViewProjection = worldMatrix * viewMatrix * projectionMatrix;
+            basicPositionEffect.Parameters["WorldViewProjection"].SetValue(worldViewProjection);
             basicEffect.Projection = projectionMatrix;
             basicEffect.View = viewMatrix;
             basicEffect.World = worldMatrix;
 
             graphicsDevice.Clear(Color.CornflowerBlue);
-            //graphicsDevice.SetVertexBuffer(vertexBuffer);
 
             //Turn off culling so we see both sides of our rendered  triangle
             RasterizerState rasterizerState = new RasterizerState();
@@ -126,7 +125,7 @@ namespace _3dtest.Map
                 graphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, triangleVertices, 0, triangleVertices.Length, indices, 0, (MAPSIZE - 1) * (MAPSIZE - 1) * 2);
 
             }
-            
+
             foreach (EffectPass pass in basicPositionEffect.CurrentTechnique.
                     Passes)
             {
@@ -134,12 +133,7 @@ namespace _3dtest.Map
                 graphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, cube.vertices, 0,cube.vertices.Length,cube.indices,0,12);
 
             }
-
-            grassManager.Draw(gameTime,graphicsDevice,viewMatrix,projectionMatrix);
-
-            graphicsDevice.DrawUserPrimitives(PrimitiveType.TriangleStrip, grassElement.vertices, 0, 1);
-
-
+            grassManager.Draw(gameTime, graphicsDevice, worldViewProjection);
         }
 
     }

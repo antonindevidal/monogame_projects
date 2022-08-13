@@ -16,13 +16,13 @@ namespace _3dtest.Map
         //Position of the vertices
         public readonly VertexPositionColor[] vertices = new VertexPositionColor[]
         {
-            new VertexPositionColor(new Vector3(-0.5f,0,0),new Color(0,51,0,255)),
-            new VertexPositionColor(new Vector3(0.5f,0,0),new Color(0,51,0,255)),
+            new VertexPositionColor(new Vector3(-0.5f,0,0),new Color(125,255,105,255)),
+            new VertexPositionColor(new Vector3(0.5f,0,0),new Color(125,255,105,255)),
 
-            new VertexPositionColor(new Vector3(-0.4f,2,0),new Color(0,77,0,255)),
-            new VertexPositionColor(new Vector3(0.4f,2,0),new Color(0,77,0,255)),
+            new VertexPositionColor(new Vector3(-0.4f,2,0),new Color(149,255,133,255)),
+            new VertexPositionColor(new Vector3(0.4f,2,0),new Color(149,255,133,255)),
 
-            new VertexPositionColor(new Vector3(0,5,0),new Color(0,102,0,255)),
+            new VertexPositionColor(new Vector3(0,5,0),new Color(190,255,158,255)),
         };
 
         //Indices of the blade

@@ -31,7 +31,7 @@ namespace _3dtest
 
         protected override void Initialize()
         {
-            _graphics.PreferredBackBufferHeight = 800;
+            _graphics.PreferredBackBufferHeight = 720;
             _graphics.PreferredBackBufferWidth = 1280;
             _graphics.ApplyChanges();
             map = new BasicMap();
@@ -60,7 +60,7 @@ namespace _3dtest
         {
 
             GraphicsDevice.Clear(Color.Black);
-            map.Draw(gameTime,GraphicsDevice, camera.projectionMatrix, camera.viewMatrix, camera.worldMatrix);
+            map.Draw(gameTime, GraphicsDevice, camera.projectionMatrix, camera.viewMatrix, camera.worldMatrix,_spriteBatch) ;
 
 
             base.Draw(gameTime);

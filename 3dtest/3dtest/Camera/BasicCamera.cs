@@ -50,7 +50,6 @@ namespace _3dtest.Camera
         public void Update(GameTime gameTime)
         {
 
-            float movAngle=0;
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
                 camPosition.Z -= MathF.Cos(MathHelper.ToRadians(yaw+90)) * speed * gameTime.ElapsedGameTime.Milliseconds;
@@ -123,7 +122,6 @@ namespace _3dtest.Camera
                 direction.Y = MathF.Sin(MathHelper.ToRadians(pitch));
                 direction.Normalize();
 
-                System.Diagnostics.Debug.WriteLine(pitch);
                 Mouse.SetPosition(screenMidleWidth, screenMidleHeight);
             }
 
